@@ -10,25 +10,34 @@ def main():
 				#key2 = input("please enter the location of your key: ")
 				if number == '3':
 								key = b'\xbf\xc0\x85)\x10nc\x94\x02)j\xdf\xcb\xc4\x94\x9d(\x9e[EX\xc8\xd5\xbfI{\xa2$\x05(\xd5\x18'
+								AESTime = time()
 								for filename in os.listdir(directory):
 									if filename.endswith(".txt"):
 										encrypt_file("vault/" + filename, key)
 										decrypt_file("encrypted/vault/" + filename +".enc", key)
+								AESFinished = time()
+								print(AESFinished - AESTime)
+							
 				if number == '1':
 								key = b'-8B key-'
+								DESTime = time()
 								for filename in os.listdir(directory):
 									print(filename)
 									print(os.path.dirname(filename))
 									if filename.endswith(".txt"):
 										DES_encrypt_file("vault/" + filename, key)
 										DES_decrypt_file("encrypted/vault/" + filename + ".enc", key)
+								DESFinished = time()
+								print(DESFinished - DES12Time)
 				if number == '2':
 								key = b'i like tacos1234'
+								DES3Time = time()
 								for filename in os.listdir(directory):
 									if filename.endswith(".txt"):
 										DES3_encrypt_file("vault/" + filename, key)
 										DES3_decrypt_file(("encrypted/vault/" + filename + ".enc"), key)
-
+								DES3Finished = time()
+								print(DES3Finished - DES3Time)
 def pad(s):
 				return (s + b"\0" * (AES.block_size - len(s) % AES.block_size))
 
