@@ -10,34 +10,54 @@ def main():
 				#key2 = input("please enter the location of your key: ")
 				if number == '3':
 								key = b'\xbf\xc0\x85)\x10nc\x94\x02)j\xdf\xcb\xc4\x94\x9d(\x9e[EX\xc8\xd5\xbfI{\xa2$\x05(\xd5\x18'
-								AESTime = time()
+								AESEncryptTotal = 0
+								AESDecryptTotal = 0
 								for filename in os.listdir(directory):
 									if filename.endswith(".txt"):
+										AESEncryptStart = time()
 										encrypt_file("vault/" + filename, key)
+										AESEncryptEnd = time()
+										AESEncryptTotal += (AESEncryptEnd - AESEncryptStart)
+										AESDecryptStart = time()
 										decrypt_file("encrypted/vault/" + filename +".enc", key)
-								AESFinished = time()
-								print(AESFinished - AESTime)
-							
+										AESDecryptEnd = time()
+										AESDecryptTotal = (AESDecryptEnd - AESDecryptStart)
+										
+								print ("AES encrypted 61 books in " + str(AESEncryptTotal))
+								print ("AES decrypted 61 books in " + str(AESDecryptTotal))
 				if number == '1':
 								key = b'-8B key-'
-								DESTime = time()
+								DESEncryptTotal = 0
+								DESDecryptTotal = 0
 								for filename in os.listdir(directory):
-									print(filename)
-									print(os.path.dirname(filename))
 									if filename.endswith(".txt"):
+										DESEncryptStart = time()
 										DES_encrypt_file("vault/" + filename, key)
+										DESEncryptEnd = time()
+										DESEncryptTotal += (DESEncryptEnd - DESEncryptStart)
+										DESDecryptStart = time()
 										DES_decrypt_file("encrypted/vault/" + filename + ".enc", key)
-								DESFinished = time()
-								print(DESFinished - DES12Time)
+										DESDecryptEnd = time()
+										DESDecryptTotal += (DESDecryptEnd - DESDecryptStart)
+								print("DES encrypted 61 books in " + str(DESEncryptTotal))
+								print("DES decrypted 61 books in " + str(DESDecryptTotal))
 				if number == '2':
 								key = b'i like tacos1234'
-								DES3Time = time()
+								DES3EncryptTotal = 0
+								DES3DecryptTotal = 0
 								for filename in os.listdir(directory):
 									if filename.endswith(".txt"):
+										DES3EncryptStart = time()
 										DES3_encrypt_file("vault/" + filename, key)
+										DES3EncryptEnd = time()
+										DES3EncryptTotal += (DES3EncryptEnd - DES3EncryptStart)
+										DES3DecryptStart = time()
 										DES3_decrypt_file(("encrypted/vault/" + filename + ".enc"), key)
-								DES3Finished = time()
-								print(DES3Finished - DES3Time)
+										DES3DecryptEnd = time()
+										DES3DecryptTotal += (DES3DecryptEnd - DES3DecryptStart)
+								print("DES3 encrypted 61 books in " + str(DES3EncryptTotal))
+								print("DES3 decrypted 61 books in " + str(DES3DecryptTotal))
+
 def pad(s):
 				return (s + b"\0" * (AES.block_size - len(s) % AES.block_size))
 
